@@ -1,0 +1,150 @@
+*fmap.txt*	extended the f key of vim
+
+Author  : aiya000
+License : MIT license  {{{
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+    The above copyright notice and this permission notice shall be included
+    in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+}}}
+
+==============================================================================
+CONTENTS					*fmap-contents*
+
+INTRODUCTION			|fmap-introduction|
+USAGE				|fmap-usage|
+INTERFACE			|fmap-interface|
+  VARIABLES			  |fmap-variables|
+  COMMANDS			  |fmap-commands|
+  KEY-MAPPINGS			  |fmap-key-mappings|
+  FUNCTIONS			  |fmap-functions|
+TODO				|fmap-todo|
+CHANGELOG			|fmap-changelog|
+
+
+==============================================================================
+INTRODUCTION					*fmap-introduction*
+
+*fmap* takes a way for mappings of |f|, that is like |nnoremap|, but for vim's
+|f|.
+
+==============================================================================
+USAGE						*fmap-usage*
+
+If you install this plugin, and you add the following line into your .vimrc,
+>
+	autocmd! VimEnter * FNoreMap pb (
+	autocmd! VimEnter * FNoreMap pe )
+
+	nmap <leader>f <Plug>(fmap-forward-f)
+<
+Now you can shot '(' and ')' with <leader>fpb and <leader>fpe !
+
+==============================================================================
+INTERFACE					*fmap-interface*
+
+------------------------------------------------------------------------------
+VARIABLES					*fmap-variables*
+
+g:fmap_default_mappings				*g:fmap_default_mappings*
+	default value: vvv
+>
+	[
+		{ "strokes": ["pb"], "target": "(" },
+		{ "strokes": ["pe"], "target": ")" },
+		{ "strokes": ["Pb"], "target": "{" },
+		{ "strokes": ["Pe"], "target": "}" },
+		{ "strokes": ["kb"], "target": "[" },
+		{ "strokes": ["ke"], "target": "]" },
+		{ "strokes": ["Kb"], "target": "<" },
+		{ "strokes": ["Ke"], "target": ">" },
+	]
+<
+	This variable is readonly (cannot be modified).
+	You can refer this when you define |g:fmap_mappings|.
+
+g:fmap_mappings					*g:fmap_mappings*
+	default value: copy(g:fmap_default_mappings)
+
+	For the user preference.
+
+g:fmap_use_default_keymappings		*g:fmap_use_default_keymappings*
+	default value: v:true
+
+
+------------------------------------------------------------------------------
+COMMANDS					*fmap-commands*
+
+:FNoreMap {keys} {char}				*:FNoreMap*
+	Define a key mapping for |f|.
+	e.g. this adds {"strokes": ["."], "target": "。"} to |g:fmap_mappings|
+>
+	FNoreMap . 。
+>
+------------------------------------------------------------------------------
+KEY-MAPPINGS					*fmap-key-mappings*
+
+<Plug>(fmap-forward-f)				*<Plug>(fmap-forward-f)*
+	available mode: normal
+	default mappings (global):
+		normal:	<leader>f
+
+	Shot forward {char} with a {keys} like |f|.
+
+<Plug>(fmap-backward-f)				*<Plug>(fmap-backward-f)*
+	available mode: normal
+	default mappings (global):
+		normal:	<leader>F
+
+	Shot forward {char} with a {keys} like |F|.
+
+<Plug>(fmap-forward-t)				*<Plug>(fmap-forward-t)*
+	available mode: normal
+	default mappings (global):
+		normal:	<leader>t
+
+	Shot forward {char} with a {keys} like |t|.
+
+<Plug>(fmap-backward-t)				*<Plug>(fmap-backward-t)*
+	available mode: normal
+	default mappings (global):
+		normal:	<leader>T
+
+	Shot forward {char} with a {keys} like |T|.
+
+						*fmap-default-key-mappings*
+
+default mappings
+normal mode
+{lhs}		{rhs}
+--------	------------------------
+<leader>F	<Plug>(fmap-backward-f)
+<leader>T	<Plug>(fmap-backward-t)
+<leader>f	<Plug>(fmap-forward-f)
+<leader>t	<Plug>(fmap-forward-t)
+
+------------------------------------------------------------------------------
+FUNCTIONS					*fmap-functions*
+
+fmap#fnoremap({...})				*fmap#fnoremap()*
+	a function for |FNoreMap|.
+
+fmap#shot({direction})				*fmap#shot()*
+	a functions for |<Plug>(fmap-backward-f)|, |<Plug>(fmap-backward-f)|,
+	|<Plug>(fmap-forward-t)|, and |<Plug>(fmap-backward-t)|
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:noet:fen:
