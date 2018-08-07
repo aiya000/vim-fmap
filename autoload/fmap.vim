@@ -10,7 +10,7 @@ function! fmap#fnoremap(...) abort
     " if `target` is not existent at g:fmap_mappings
     if old_mapping is v:null
         let new_mapping = { 'strokes': [stroke], 'target': target }
-        call add(g:fmap_mappings, mapping)
+        call add(g:fmap_mappings, new_mapping)
         return
     endif
 
