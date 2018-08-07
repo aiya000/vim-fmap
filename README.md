@@ -6,8 +6,11 @@ This vim plugin takes a way for mappping `f` of Vim :laughing:
 For example, with this preference
 
 ```vim
-autocmd! VimEnter * FNoreMap pb (
-autocmd! VimEnter * FNoreMap pe )
+augroup VimFmap
+    autocmd!
+    autocmd VimEnter * FNoreMap pb (
+    autocmd VimEnter * FNoreMap pe )
+augroup END
 
 nmap <leader>f <Plug>(fmap-forward-f)
 ```
