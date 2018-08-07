@@ -4,8 +4,8 @@ This vim plugin takes a way for the mappable `f` :laughing:
 For example, with this preference
 
 ```vim
-FNoreMap pb (
-FNoreMap pe )
+autocmd! VimEnter * FNoreMap pb (
+autocmd! VimEnter * FNoreMap pe )
 
 nmap <leader>f <Plug>(fmap-forward-f)
 ```
