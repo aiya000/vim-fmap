@@ -1,5 +1,7 @@
 # :diamond_shape_with_a_dot_inside: vim-fmap :diamond_shape_with_a_dot_inside:
-This vim plugin takes a way for the mappable `f` :laughing:
+This vim plugin takes a way for mappping `f` of Vim :laughing:
+
+![sample](sample.gif)
 
 For example, with this preference
 
