@@ -23,7 +23,11 @@ d _ e ) f g h
 
 :sunny: You can move the cursor to `)` with `<leader>fpb` keymap :sunny:
 
-# :thinking: How to use this :thinking:
+## Note
+`<Esc>`, `<C-[>`, or `<C-c>` escapes from the waiting of key inputs.
+Please input these key if you are flustered! :joy:
+
+# :thinking: How to install this :thinking:
 Please add the following line into your .vimrc
 
 With dein.vim
