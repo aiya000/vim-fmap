@@ -60,7 +60,7 @@ INTERFACE					*fmap-interface*
 VARIABLES					*fmap-variables*
 
 g:fmap_default_mappings				*g:fmap_default_mappings*
-	default value: vvv
+	default value: below
 >
 	[
 		{ "strokes": ["pb"], "target": "(" },
@@ -80,9 +80,33 @@ g:fmap_mappings					*g:fmap_mappings*
 	default value: copy(g:fmap_default_mappings)
 
 	For the user preference.
+	You can define this like
+>
+	let g:fmap_mappings = [
+	    \ { 'strokes': ['T'], 'target': '…'},
+	    \ { "strokes": ["p"], "target": "(" },
+	    \ { "strokes": ["P"], "target": ")" },
+	]
+<
+	This priority is higher than |g:fmap_default_mappings|
+	(|g:fmap_default_mappings| is ignored).
+
+	You would define it like below, if you want to avoid it.
+>
+	let g:fmap_mappings = extend(g:fmap_default_mappings, [
+	    \ { 'strokes': ['T'], 'target': '…'},
+	    \ { "strokes": ["p"], "target": "(" },
+	    \ { "strokes": ["P"], "target": ")" },
+	\ ])
+<
+	Also |g:fmap_default_mappings| is used simply if this is not defined.
 
 g:fmap_use_default_keymappings		*g:fmap_use_default_keymappings*
 	default value: v:true
+
+g:fmap_escape_keys			*g:fmap_escape_keys*
+	default value: ['', '']
+	Vim leaves from fmap on these are input.
 
 
 ------------------------------------------------------------------------------

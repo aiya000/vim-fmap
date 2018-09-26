@@ -69,8 +69,8 @@ let g:fmap_default_mappings = [
 lockvar! g:fmap_default_mappings
 
 let g:fmap_mappings = get(g:, 'fmap_mappings', copy(g:fmap_default_mappings))
-
 let g:fmap_use_default_keymappings = get(g:, 'fmap_use_default_keymappings', v:true)
+let g:fmap_escape_keys = get(g:, 'fmap_escape_keys', ['', ''])
 
 nmap <silent> <Plug>(fmap-forward-f) :<C-u>call fmap#shot('f')<CR>
 nmap <silent> <Plug>(fmap-backward-f) :<C-u>call fmap#shot('F')<CR>

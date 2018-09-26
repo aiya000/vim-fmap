@@ -31,7 +31,7 @@ function! fmap#shot(direction) abort
     let key_stack = ''
     while !s:is_a_mapping(key_stack)
         let char = nr2char(getchar())
-        if s:List.has(['', ''], char) " is `char` contained by these?
+        if s:List.has(g:fmap_escape_keys, char) " if an escape key is input
             return
         endif
         let key_stack .= char
