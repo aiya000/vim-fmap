@@ -29,7 +29,7 @@ let g:fmap_default_mappings = [
     \ { 'strokes': ["'ke"], 'target': 'け'},
     \ { 'strokes': ["'ko"], 'target': 'こ'},
     \ { 'strokes': ["'sa"], 'target': 'さ'},
-    \ { 'strokes': ["'si', '-shi"], 'target': 'し'},
+    \ { 'strokes': ["'si", "'shi"], 'target': 'し'},
     \ { 'strokes': ["'su"], 'target': 'す'},
     \ { 'strokes': ["'se"], 'target': 'せ'},
     \ { 'strokes': ["'so"], 'target': 'そ'},
@@ -77,11 +77,31 @@ nmap <expr> <Plug>(fmap-backward-f) fmap#shot(fmap#input_a_stroke(), 'F')
 nmap <expr> <Plug>(fmap-forward-t) fmap#shot(fmap#input_a_stroke(), 't')
 nmap <expr> <Plug>(fmap-backward-t) fmap#shot(fmap#input_a_stroke(), 'T')
 
+vmap <expr> <Plug>(fmap-forward-f) fmap#shot(fmap#input_a_stroke(), 'f')
+vmap <expr> <Plug>(fmap-backward-f) fmap#shot(fmap#input_a_stroke(), 'F')
+vmap <expr> <Plug>(fmap-forward-t) fmap#shot(fmap#input_a_stroke(), 't')
+vmap <expr> <Plug>(fmap-backward-t) fmap#shot(fmap#input_a_stroke(), 'T')
+
+omap <expr> <Plug>(fmap-forward-f) fmap#shot(fmap#input_a_stroke(), 'f')
+omap <expr> <Plug>(fmap-backward-f) fmap#shot(fmap#input_a_stroke(), 'F')
+omap <expr> <Plug>(fmap-forward-t) fmap#shot(fmap#input_a_stroke(), 't')
+omap <expr> <Plug>(fmap-backward-t) fmap#shot(fmap#input_a_stroke(), 'T')
+
 if g:fmap_use_default_keymappings
     nmap <localleader>f <Plug>(fmap-forward-f)
     nmap <localleader>F <Plug>(fmap-backward-f)
     nmap <localleader>t <Plug>(fmap-forward-t)
     nmap <localleader>T <Plug>(fmap-backward-t)
+
+    vmap <localleader>f <Plug>(fmap-forward-f)
+    vmap <localleader>F <Plug>(fmap-backward-f)
+    vmap <localleader>t <Plug>(fmap-forward-t)
+    vmap <localleader>T <Plug>(fmap-backward-t)
+
+    omap <localleader>f <Plug>(fmap-forward-f)
+    omap <localleader>F <Plug>(fmap-backward-f)
+    omap <localleader>t <Plug>(fmap-forward-t)
+    omap <localleader>T <Plug>(fmap-backward-t)
 endif
 
 command! -bar -nargs=+ FNoreMap call fmap#fnoremap(<f-args>)

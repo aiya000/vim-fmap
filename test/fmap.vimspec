@@ -6,7 +6,7 @@ Describe fmap.vim
     let Optional = V.import('Data.Optional')
   End
 
-  Describe `nmap <Plug>(fmap-*)`
+  Describe <Plug>(fmap-*)
     Before all
       call InitializeVariables()
     End
