@@ -26,6 +26,7 @@ CONTENTS					*fmap-contents*
 
 INTRODUCTION			|fmap-introduction|
 USAGE				|fmap-usage|
+TERM				|fmap-term|
 INTERFACE			|fmap-interface|
   VARIABLES			  |fmap-variables|
   COMMANDS			  |fmap-commands|
@@ -52,6 +53,12 @@ If you install this plugin, and you add the following line into your .vimrc,
 	nmap <leader>f <Plug>(fmap-forward-f)
 <
 Now you can shot '(' and ')' with <leader>fpb and <leader>fpe !
+
+==============================================================================
+TERM						*fmap-term*
+
+{f-mapping}					*fmap-f-mapping*
+	The key mapping for |f|. This is exactly the plugin's purpose!
 
 ==============================================================================
 INTERFACE					*fmap-interface*
@@ -164,12 +171,26 @@ g:fmap_escape_keys			*g:fmap_escape_keys*
 ------------------------------------------------------------------------------
 COMMANDS					*fmap-commands*
 
-:FNoreMap {keys} {char}				*:FNoreMap*
-	Define a key mapping for |f|.
-	e.g. this adds {"strokes": ["."], "target": "。"} to |g:fmap_mappings|
+:FNoreMap {stroke} {char}				*:FNoreMap*
+	Adds the {stroke} and the {char} as an {f-mapping}, to
+	|g:fmap_mappings|, if the {char} is not existent as an element of
+	g:fmap_mappings.target .
+
+	Or adds the {stroke} to g:fmap_mappings.strokes if
+	"g:fmap_mappings.target ==# {char}" satisfies.
+
+	e.g.
+	This makes {"strokes": ["."], "target": "。"} into |g:fmap_mappings|.
 >
 	FNoreMap . 。
+<
+	Also this makes {"strokes": [",", "x"], "target": "、"} into
+	|g:fmap_mappings|.
 >
+	FNoreMap , 、
+	FNoreMap x 、
+<
+
 ------------------------------------------------------------------------------
 KEY-MAPPINGS					*fmap-key-mappings*
 
