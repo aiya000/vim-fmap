@@ -1,4 +1,7 @@
-let s:List = vital#fmap#import('Data.List')
+let s:V = vital#fmap#new()
+
+let s:List = s:V.import('Data.List')
+let s:Optional = s:V.import('Data.Optional')
 
 function! fmap#fnoremap(...) abort
     let stroke = a:1
@@ -26,23 +29,35 @@ function! s:is_a_mapping(stroke) abort
     return v:false
 endfunction
 
-" `direction` expects to be 'f', 'F', 't', or 'T'
-function! fmap#shot(direction) abort
+" Gets a user's input as a key "stroke"
+function! fmap#input_a_stroke() abort
     let key_stack = ''
     while !s:is_a_mapping(key_stack)
         let char = nr2char(getchar())
         if s:List.has(g:fmap_escape_keys, char) " if an escape key is input
-            return
+            return s:Optional.none()
         endif
         let key_stack .= char
     endwhile
+    return s:Optional.new(key_stack)
+endfunction
+
+" Makes a key for `nmap <silent>`.
+" `direction` expects to be 'f', 'F', 't', or 'T'.
+function! fmap#shot(maybe_stroke, direction) abort
+    if s:Optional.empty(a:maybe_stroke)
+        return ''
+    endif
+    let stroke = s:Optional.get(a:maybe_stroke)
 
     let mapping = s:List.find(g:fmap_mappings, v:null, { mapping ->
-        \ s:List.has(mapping['strokes'], key_stack)
+        \ s:List.has(mapping['strokes'], stroke)
     \ })
     if mapping is v:null
-        throw 'The mapping of `' . key_stack '` is invalid.' .
-            \ 'Please confirm your g:fmap_mappings.'
+        throw printf(
+            \ 'The mapping of `%s` is invalid, ' .
+            \ 'please confirm your g:fmap_mappings.',
+            \ stroke)
     endif
 
     let direction
@@ -51,5 +66,5 @@ function! fmap#shot(direction) abort
         \ : a:direction ==# 't' ? 't'
         \ : a:direction ==# 'T' ? 'T'
         \ : execute(printf('throw "`%s` is unknown direction"', a:direction))
-    execute 'normal!' (direction . mapping.target)
+    return direction . mapping.target
 endfunction

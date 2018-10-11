@@ -72,10 +72,10 @@ let g:fmap_mappings = get(g:, 'fmap_mappings', copy(g:fmap_default_mappings))
 let g:fmap_use_default_keymappings = get(g:, 'fmap_use_default_keymappings', v:true)
 let g:fmap_escape_keys = get(g:, 'fmap_escape_keys', ['', ''])
 
-nmap <silent> <Plug>(fmap-forward-f) :<C-u>call fmap#shot('f')<CR>
-nmap <silent> <Plug>(fmap-backward-f) :<C-u>call fmap#shot('F')<CR>
-nmap <silent> <Plug>(fmap-forward-t) :<C-u>call fmap#shot('t')<CR>
-nmap <silent> <Plug>(fmap-backward-t) :<C-u>call fmap#shot('T')<CR>
+nmap <expr> <Plug>(fmap-forward-f) fmap#shot(fmap#input_a_stroke(), 'f')
+nmap <expr> <Plug>(fmap-backward-f) fmap#shot(fmap#input_a_stroke(), 'F')
+nmap <expr> <Plug>(fmap-forward-t) fmap#shot(fmap#input_a_stroke(), 't')
+nmap <expr> <Plug>(fmap-backward-t) fmap#shot(fmap#input_a_stroke(), 'T')
 
 if g:fmap_use_default_keymappings
     nmap <localleader>f <Plug>(fmap-forward-f)
