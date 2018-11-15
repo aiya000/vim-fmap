@@ -66,6 +66,27 @@ INTERFACE					*fmap-interface*
 ------------------------------------------------------------------------------
 VARIABLES					*fmap-variables*
 
+g:fmap_mappings					*g:fmap_mappings*
+	default value: copy(g:fmap_default_mappings)
+
+	The mappings for vim-fmap.
+	For example, if you define below
+>
+	let g:fmap_mappings = [
+	    \ { 'strokes': ['T'], 'target': '…'},
+	]
+<
+	This allows to <leader>fT to jump '…'.
+
+	Also you can refer |g:fmap_default_mappings| for basic mappings.
+>
+	let g:fmap_mappings = extend(g:fmap_default_mappings, [
+	    \ { 'strokes': ['T'], 'target': '…'},
+	    \ { "strokes": ["p"], "target": "(" },
+	    \ { "strokes": ["P"], "target": ")" },
+	\ ])
+<
+
 g:fmap_default_mappings				*g:fmap_default_mappings*
 	default value: below
 >
@@ -132,40 +153,18 @@ g:fmap_default_mappings				*g:fmap_default_mappings*
 	\ ]
 	" }}}
 <
-	This variable is readonly (cannot be modified).
-	You can refer this when you define |g:fmap_mappings|.
-
-g:fmap_mappings					*g:fmap_mappings*
-	default value: copy(g:fmap_default_mappings)
-
-	For the user preference.
-	You can define this like
->
-	let g:fmap_mappings = [
-	    \ { 'strokes': ['T'], 'target': '…'},
-	    \ { "strokes": ["p"], "target": "(" },
-	    \ { "strokes": ["P"], "target": ")" },
-	]
-<
-	This priority is higher than |g:fmap_default_mappings|
-	(|g:fmap_default_mappings| is ignored).
-
-	You would define it like below, if you want to avoid it.
->
-	let g:fmap_mappings = extend(g:fmap_default_mappings, [
-	    \ { 'strokes': ['T'], 'target': '…'},
-	    \ { "strokes": ["p"], "target": "(" },
-	    \ { "strokes": ["P"], "target": ")" },
-	\ ])
-<
-	Also |g:fmap_default_mappings| is used simply if this is not defined.
+	A readonly template for |g:fmap_mappings|.
 
 g:fmap_use_default_keymappings		*g:fmap_use_default_keymappings*
 	default value: v:true
 
+	vim-fmap maps <leader>f (F, t, T) to call vim-fmap automatically, if
+	this is v:true.
+	Please see |fmap-key-mappings| for <leader>f (F, t, T).
+
 g:fmap_escape_keys			*g:fmap_escape_keys*
 	default value: ['', '']
-	Vim leaves from fmap on these are input.
+	vim-fmap leaves <leader>f (F, t, T) with this.
 
 
 ------------------------------------------------------------------------------
