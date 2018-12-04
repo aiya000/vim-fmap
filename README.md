@@ -1,4 +1,5 @@
 # :diamond_shape_with_a_dot_inside: vim-fmap :diamond_shape_with_a_dot_inside:
+
 This vim plugin takes a way for mappping `f` of Vim :laughing:
 
 ![sample](sample.gif)
@@ -15,25 +16,33 @@ augroup END
 nmap <leader>f <Plug>(fmap-forward-f)
 ```
 
-When the cursor is here (`_` is the cursor)
+If your cursor is above of `^`
 
 ```
-d _ e ) f g h
+b a a ) a
+  ^
 ```
 
-:sunny: You can move the cursor to `)` with `<leader>fpb` keymap :sunny:
+You can move the cursor to `)` with the `<leader>fpb` key :sunny:
 
-## Note
-`<Esc>`, `<C-[>`, or `<C-c>` escapes from the waiting of key inputs.
-Please input these key if you are flustered! :joy:
+```
+b a a ) a
+      ^
+```
 
-# :thinking: How to install this :thinking:
+`F`, `t`, and `T` can be used on the same way.
+
+Also if you want to leave on the way,
+`<Esc>`, `<C-[>`, and `<C-c>` helps with you.
+
+# :gift: How to install this :gift:
+
 Please add the following line into your .vimrc
 
 With dein.vim
 
 ```vim
-call dein#add('aiya000/vim-fmap')
+call dein#add('aiya001/vim-fmap')
 ```
 
 With dein.vim and .toml
