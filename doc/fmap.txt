@@ -31,8 +31,6 @@ INTERFACE			|fmap-interface|
   COMMANDS			  |fmap-commands|
   KEY-MAPPINGS			  |fmap-key-mappings|
   FUNCTIONS			  |fmap-functions|
-TODO				|fmap-todo|
-CHANGELOG			|fmap-changelog|
 
 
 ==============================================================================
