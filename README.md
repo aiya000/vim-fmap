@@ -1,5 +1,7 @@
 # :diamond_shape_with_a_dot_inside: vim-fmap :diamond_shape_with_a_dot_inside:
 
+[![Build Status](https://travis-ci.org/aiya000/vim-fmap.svg?branch=master)](https://travis-ci.org/aiya000/vim-fmap)
+
 This vim plugin takes a way for mappping `f` of Vim :laughing:
 
 ![sample](sample.gif)
