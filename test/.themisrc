@@ -2,8 +2,8 @@ call themis#helper('command').with(themis#helper('assert'))
 call themis#option('runtimepath', ['..'])
 
 function! InitializeEnv() abort
-  let g:fmap_mappings = [
-    \ { 'strokes': [','], 'target': '、' },
-    \ { 'strokes': ['.'], 'target': '。' },
-  \ ]
+  let g:fmap_mappings = {
+    \ ',': '、',
+    \ '.': '。',
+  \ }
 endfunction

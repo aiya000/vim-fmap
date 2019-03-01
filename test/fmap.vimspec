@@ -19,20 +19,15 @@ Describe fmap.vim
   End
 
   Describe :FNoreMap
-    It adds a new f-mapping with newer .target
+    It makes a new keymap with the specified stroke
       FNoreMap x ＄
-      Assert List.has(g:fmap_mappings, {'strokes': ['x'], 'target': '＄'})
+      Assert Equals(fmap#shot('x', 'f'), 'f＄')
     End
 
-    It adds a stroke of the f-mapping's to g:fmap_mappings with already existent .target
-      FNoreMap o 。
-      let added_mapping = List.find(g:fmap_mappings, v:null, { fmap_mapping ->
-            \ fmap_mapping.target ==# '。'
-            \ })
-
-      Assert
-            \ List.has(added_mapping.strokes, '.') &&
-            \ List.has(added_mapping.strokes, 'o')
+    It overwrites the specified stroke by a new keymap if the stroke is already existent
+      FNoreMap x 、
+      FNoreMap x 。
+      Assert Equals(fmap#shot('x', 'f'), 'f。')
     End
   End
 End
