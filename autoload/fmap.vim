@@ -2,30 +2,12 @@ let s:V = vital#fmap#new()
 
 let s:List = s:V.import('Data.List')
 
-function! fmap#fnoremap(...) abort
-  let stroke = a:1
-  let target = a:2
-  let old_mapping = s:List.find(g:fmap_mappings, v:null, { mapping ->
-    \ mapping['target'] ==# target
-  \ })
-
-  " if `target` is not existent at g:fmap_mappings
-  if old_mapping is v:null
-    let new_mapping = { 'strokes': [stroke], 'target': target }
-    call add(g:fmap_mappings, new_mapping)
-    return
-  endif
-
-  call add(old_mapping.strokes, stroke)
+function! fmap#fnoremap(stroke, target) abort
+  let g:fmap_mappings[a:stroke] = a:target
 endfunction
 
 function! s:is_a_mapping(stroke) abort
-  for mapping in g:fmap_mappings
-    if s:List.has(mapping.strokes, a:stroke)
-      return v:true
-    endif
-  endfor
-  return v:false
+  return s:List.has(keys(g:fmap_mappings), a:stroke)
 endfunction
 
 " Gets a user's input as a key "stroke"
@@ -41,21 +23,17 @@ function! fmap#input_a_stroke() abort
   return key_stack
 endfunction
 
-" Makes a key for `nmap <silent>`.
-" `direction` expects to be 'f', 'F', 't', or 'T'.
+" Makes a key stroke, like 'f、', 'F。', and 'T！'.
+"
+"   direction: 'f', 'F', 't', or 'T'.
 function! fmap#shot(stroke, direction) abort
   if a:stroke is v:null
     return ''
   endif
 
-  let mapping = s:List.find(g:fmap_mappings, v:null, { mapping ->
-    \ s:List.has(mapping['strokes'], a:stroke)
-  \ })
+  let mapping = get(g:fmap_mappings, a:stroke, v:null)
   if mapping is v:null
-    throw printf(
-      \ 'The mapping of `%s` is invalid, ' .
-      \ 'please confirm your g:fmap_mappings.',
-      \ a:stroke)
+    throw printf('No `%s` found as a stroke. Please confirm your g:fmap_mappings.', a:stroke)
   endif
 
   let direction
@@ -64,5 +42,5 @@ function! fmap#shot(stroke, direction) abort
     \ : a:direction ==# 't' ? 't'
     \ : a:direction ==# 'T' ? 'T'
     \ : execute(printf('throw "`%s` is unknown direction"', a:direction))
-  return direction . mapping.target
+  return direction . mapping
 endfunction
