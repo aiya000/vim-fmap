@@ -4,13 +4,11 @@ Describe fmap.vim
 
     let List = V.import('Data.List')
     let Optional = V.import('Data.Optional')
+
+    call InitializeEnv()
   End
 
   Describe <Plug>(fmap-*)
-    Before all
-      call InitializeVariables()
-    End
-
     It gets an f-mapped key
       Assert Equals(fmap#shot(Optional.new(','), 'f'), 'f、')
       Assert Equals(fmap#shot(Optional.new('.'), 'f'), 'f。')
@@ -22,10 +20,6 @@ Describe fmap.vim
   End
 
   Describe :FNoreMap
-    Before all
-      call InitializeVariables()
-    End
-
     It adds a new f-mapping with newer .target
       FNoreMap x ＄
       Assert List.has(g:fmap_mappings, {'strokes': ['x'], 'target': '＄'})
@@ -34,12 +28,12 @@ Describe fmap.vim
     It adds a stroke of the f-mapping's to g:fmap_mappings with already existent .target
       FNoreMap o 。
       let added_mapping = List.find(g:fmap_mappings, v:null, { fmap_mapping ->
-        \ fmap_mapping.target ==# '。'
-      \ })
+            \ fmap_mapping.target ==# '。'
+            \ })
 
       Assert
-        \ List.has(added_mapping.strokes, '.') &&
-        \ List.has(added_mapping.strokes, 'o')
+            \ List.has(added_mapping.strokes, '.') &&
+            \ List.has(added_mapping.strokes, 'o')
     End
   End
 End

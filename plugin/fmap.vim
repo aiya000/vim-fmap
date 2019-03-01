@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 if exists('g:loaded_fmap')
-    finish
+  finish
 endif
 let g:loaded_fmap = v:true
 
