@@ -36,15 +36,15 @@ INTERFACE			|fmap-interface|
 ==============================================================================
 INTRODUCTION					*fmap-introduction*
 
-*fmap* supports key mappings for vim's |f|, like |nnoremap|.
+*fmap* allows to define keymaps for vim's |f|, like normal mode's |nnoremap|.
 
 ==============================================================================
 USAGE						*fmap-usage*
 
 If you install this plugin, and you add the following line into your .vimrc,
 >
-	autocmd! VimEnter * FNoreMap pb (
-	autocmd! VimEnter * FNoreMap pe )
+	FNoreMap pb (
+	FNoreMap pe )
 
 	nmap <leader>f <Plug>(fmap-forward-f)
 <
@@ -62,18 +62,18 @@ g:fmap_mappings					*g:fmap_mappings*
 	The mappings for vim-fmap.
 	For example, if you define below
 >
-	let g:fmap_mappings = [
-	    \ { 'strokes': ['T'], 'target': '…'},
-	]
+	let g:fmap_mappings = {
+	  \ 'T': '…',
+	\k}
 <
 	This allows to <leader>fT to jump '…'.
 
-	Also you can refer |g:fmap_default_mappings| for basic mappings.
+	Also you can refer |g:fmap_default_mappings| to use basic keymaps.
 >
 	let g:fmap_mappings = extend(g:fmap_default_mappings, [
-	    \ { 'strokes': ['T'], 'target': '…'},
-	    \ { "strokes": ["p"], "target": "(" },
-	    \ { "strokes": ["P"], "target": ")" },
+	\ 'T': '…',
+	\ 'p': '（',
+	\ 'P': '）',
 	\ ])
 <
 
@@ -81,69 +81,70 @@ g:fmap_default_mappings				*g:fmap_default_mappings*
 	default value: below
 >
 	" {{{
-	[
-	    \ { 'strokes': ['pb'], 'target': '(' },
-	    \ { 'strokes': ['pe'], 'target': ')' },
-	    \ { 'strokes': ['Pb'], 'target': '{' },
-	    \ { 'strokes': ['Pe'], 'target': '}' },
-	    \ { 'strokes': ['kb'], 'target': '[' },
-	    \ { 'strokes': ['ke'], 'target': ']' },
-	    \ { 'strokes': ['Kb'], 'target': '<' },
-	    \ { 'strokes': ['Ke'], 'target': '>' },
-	    \ { 'strokes': ['.'], 'target': '。'},
-	    \ { 'strokes': [','], 'target': '、'},
-	    \ { 'strokes': ['!'], 'target': '！'},
-	    \ { 'strokes': ['?'], 'target': '？'},
-	    \ { 'strokes': ["'a"], 'target': 'あ'},
-	    \ { 'strokes': ["'i"], 'target': 'い'},
-	    \ { 'strokes': ["'u"], 'target': 'う'},
-	    \ { 'strokes': ["'e"], 'target': 'え'},
-	    \ { 'strokes': ["'o"], 'target': 'お'},
-	    \ { 'strokes': ["'ka"], 'target': 'か'},
-	    \ { 'strokes': ["'ki"], 'target': 'き'},
-	    \ { 'strokes': ["'ku"], 'target': 'く'},
-	    \ { 'strokes': ["'ke"], 'target': 'け'},
-	    \ { 'strokes': ["'ko"], 'target': 'こ'},
-	    \ { 'strokes': ["'sa"], 'target': 'さ'},
-	    \ { 'strokes': ["'si', '-shi"], 'target': 'し'},
-	    \ { 'strokes': ["'su"], 'target': 'す'},
-	    \ { 'strokes': ["'se"], 'target': 'せ'},
-	    \ { 'strokes': ["'so"], 'target': 'そ'},
-	    \ { 'strokes': ["'ta"], 'target': 'た'},
-	    \ { 'strokes': ["'ti"], 'target': 'ち'},
-	    \ { 'strokes': ["'tu"], 'target': 'つ'},
-	    \ { 'strokes': ["'te"], 'target': 'て'},
-	    \ { 'strokes': ["'to"], 'target': 'と'},
-	    \ { 'strokes': ["'na"], 'target': 'な'},
-	    \ { 'strokes': ["'ni"], 'target': 'に'},
-	    \ { 'strokes': ["'nu"], 'target': 'ぬ'},
-	    \ { 'strokes': ["'ne"], 'target': 'ね'},
-	    \ { 'strokes': ["'no"], 'target': 'の'},
-	    \ { 'strokes': ["'ha"], 'target': 'は'},
-	    \ { 'strokes': ["'hi"], 'target': 'ひ'},
-	    \ { 'strokes': ["'hu"], 'target': 'ふ'},
-	    \ { 'strokes': ["'he"], 'target': 'へ'},
-	    \ { 'strokes': ["'ho"], 'target': 'ほ'},
-	    \ { 'strokes': ["'ma"], 'target': 'ま'},
-	    \ { 'strokes': ["'mi"], 'target': 'み'},
-	    \ { 'strokes': ["'mu"], 'target': 'む'},
-	    \ { 'strokes': ["'me"], 'target': 'め'},
-	    \ { 'strokes': ["'mo"], 'target': 'も'},
-	    \ { 'strokes': ["'ya"], 'target': 'や'},
-	    \ { 'strokes': ["'yu"], 'target': 'ゆ'},
-	    \ { 'strokes': ["'yo"], 'target': 'よ'},
-	    \ { 'strokes': ["'ra"], 'target': 'ら'},
-	    \ { 'strokes': ["'ri"], 'target': 'り'},
-	    \ { 'strokes': ["'ru"], 'target': 'る'},
-	    \ { 'strokes': ["'re"], 'target': 'れ'},
-	    \ { 'strokes': ["'ro"], 'target': 'ろ'},
-	    \ { 'strokes': ["'wa"], 'target': 'わ'},
-	    \ { 'strokes': ["'wo"], 'target': 'を'},
-	    \ { 'strokes': ["'nn"], 'target': 'ん'},
-	\ ]
+	{
+	  \ 'pb': '(',
+	  \ 'pe': ')',
+	  \ 'Pb': '{',
+	  \ 'Pe': '}',
+	  \ 'kb': '[',
+	  \ 'ke': ']',
+	  \ 'Kb': '<',
+	  \ 'Ke': '>',
+	  \ '.': '。',
+	  \ ',': '、',
+	  \ '!': '！',
+	  \ '?': '？',
+	  \ "'a": 'あ',
+	  \ "'i": 'い',
+	  \ "'u": 'う',
+	  \ "'e": 'え',
+	  \ "'o": 'お',
+	  \ "'ka": 'か',
+	  \ "'ki": 'き',
+	  \ "'ku": 'く',
+	  \ "'ke": 'け',
+	  \ "'ko": 'こ',
+	  \ "'sa": 'さ',
+	  \ "'si": 'し',
+	  \ "'shi": 'し',
+	  \ "'su": 'す',
+	  \ "'se": 'せ',
+	  \ "'so": 'そ',
+	  \ "'ta": 'た',
+	  \ "'ti": 'ち',
+	  \ "'tu": 'つ',
+	  \ "'te": 'て',
+	  \ "'to": 'と',
+	  \ "'na": 'な',
+	  \ "'ni": 'に',
+	  \ "'nu": 'ぬ',
+	  \ "'ne": 'ね',
+	  \ "'no": 'の',
+	  \ "'ha": 'は',
+	  \ "'hi": 'ひ',
+	  \ "'hu": 'ふ',
+	  \ "'he": 'へ',
+	  \ "'ho": 'ほ',
+	  \ "'ma": 'ま',
+	  \ "'mi": 'み',
+	  \ "'mu": 'む',
+	  \ "'me": 'め',
+	  \ "'mo": 'も',
+	  \ "'ya": 'や',
+	  \ "'yu": 'ゆ',
+	  \ "'yo": 'よ',
+	  \ "'ra": 'ら',
+	  \ "'ri": 'り',
+	  \ "'ru": 'る',
+	  \ "'re": 'れ',
+	  \ "'ro": 'ろ',
+	  \ "'wa": 'わ',
+	  \ "'wo": 'を',
+	  \ "'nn": 'ん',
+	\ }
 	" }}}
 <
-	A readonly template for |g:fmap_mappings|.
+	This is a readonly value.
 
 g:fmap_use_default_keymappings		*g:fmap_use_default_keymappings*
 	default value: v:true
@@ -161,31 +162,13 @@ g:fmap_escape_keys			*g:fmap_escape_keys*
 COMMANDS					*fmap-commands*
 
 :FNoreMap {stroke} {char}				*:FNoreMap*
-	Adds a keymapping to |g:fmap_mappings|for a {stroke} to jump to a
-	{char}.
-
+	Adds a keymap to |g:fmap_mappings|to jump to {char} with {stroke}.
 >
 	FNoreMap . 。
 <
 	above makes below
 >
-	let g:fmap_mappings = [
-	  \ ...
-	  \ {"strokes": ["."], "target": "。"}
-	]
-<
-	If the {char} `…` is already existent
->
-	let g:fmap_mappings = [
-	    \ { 'target': '…', 'strokes': ['T'] }
-	]
-	FNoreMap tt …
-<
-	the {strokes} `tt` will be added to there
->
-	let g:fmap_mappings = [
-	    \ { 'target': '…', 'strokes': ['T', 'tt'] }
-	]
+	let g:fmap_mappings['.'] = '。'
 <
 
 ------------------------------------------------------------------------------
@@ -233,7 +216,7 @@ normal mode
 ------------------------------------------------------------------------------
 FUNCTIONS					*fmap-functions*
 
-fmap#fnoremap({...})				*fmap#fnoremap()*
+fmap#fnoremap({stroke}, {char})				*fmap#fnoremap()*
 	a function for |FNoreMap|.
 
 fmap#shot({direction})				*fmap#shot()*
