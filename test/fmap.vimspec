@@ -3,19 +3,18 @@ Describe fmap.vim
     let V = vital#fmap#new()
 
     let List = V.import('Data.List')
-    let Optional = V.import('Data.Optional')
 
     call InitializeEnv()
   End
 
   Describe <Plug>(fmap-*)
     It gets an f-mapped key
-      Assert Equals(fmap#shot(Optional.new(','), 'f'), 'f、')
-      Assert Equals(fmap#shot(Optional.new('.'), 'f'), 'f。')
+      Assert Equals(fmap#shot(',', 'f'), 'f、')
+      Assert Equals(fmap#shot('.', 'f'), 'f。')
     End
 
     It escapes with an invalid key stroke
-      Assert Equals(fmap#shot(Optional.none(), 'f'), '')
+      Assert Equals(fmap#shot(v:null, 'f'), '')
     End
   End
 
