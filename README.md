@@ -44,7 +44,7 @@ Please add the following line into your .vimrc
 With dein.vim
 
 ```vim
-call dein#add('aiya001/vim-fmap')
+call dein#add('aiya000/vim-fmap')
 ```
 
 With dein.vim and .toml
