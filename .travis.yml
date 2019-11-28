@@ -2,12 +2,16 @@ language: generic
 
 install:
   - if [ ! -d ~/cache ] ; then
-    mkdir ~/cache &&
-    git clone https://github.com/thinca/vim-themis ~/cache/vim-themis &&
+    mkdir ~/cache ;
+    fi
+  - if [ ! -d ~/cache/vim ] ; then
     git clone https://github.com/vim/vim ~/cache/vim &&
     cd ~/cache/vim &&
     ./configure &&
     make;
+    fi
+  - if [ ! -d ~/cache/vim-themis ] ; then
+    git clone https://github.com/thinca/vim-themis ~/cache/vim-themis ;
     fi
   - export THEMIS_VIM=~/cache/vim/src/vim
 
